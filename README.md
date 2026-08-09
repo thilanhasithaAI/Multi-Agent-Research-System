@@ -1,145 +1,94 @@
-LangChain Multi-Agent Research System
-A powerful multi-agent research system built with LangChain that autonomously researches topics, gathers information, writes comprehensive reports, and evaluates their quality using AI-powered agents.
+# Multi-Agent Research System
 
-🔬 Research Automation • 🤖 Multi-Agent Orchestration • 📝 Intelligent Report Generation
+A lightweight Python research automation project that uses LangChain, Google Gemini, and custom agent tooling to perform web search, content scraping, report writing, and critique.
 
-🌟 Features
-Multi-Agent Architecture: Specialized agents for searching, reading, writing, and critiquing
-Automated Web Research: Intelligent web search with Tavily API
-Smart Content Extraction: Advanced web scraping with multiple fallback strategies
-AI-Powered Report Generation: Automatically generates structured research reports
-Quality Evaluation: Built-in critic agent for report validation and scoring
-Interactive UI: Streamlit-based user interface for easy interaction
-Pipeline Orchestration: Seamless coordination of multiple agents
-🏗️ Architecture
-┌─────────────────────────────────────────────────────┐
-│           Streamlit UI (app.py)                     │
-│      Multi-Agent Research Assistant Interface       │
-└──────────────────┬──────────────────────────────────┘
-                   │
-┌──────────────────▼──────────────────────────────────┐
-│      Research Pipeline (pipeline.py)                │
-│        Orchestrates multi-agent workflow            │
-└──────────────────┬──────────────────────────────────┘
-                   │
-    ┌──────────────┼──────────────┐
-    │              │              │
-┌───▼───┐    ┌────▼─────┐   ┌───▼────┐
-│Search │    │   Reader  │   │ Writer │
-│Agent  │    │   Agent   │   │ Chain  │
-└───┬───┘    └────┬─────┘   └───┬────┘
-    │             │             │
-    │  ┌──────────▼─────────┐   │
-    └─▶│  Tools Layer       │◀──┘
-       │                    │
-       │ • web_search      │
-       │ • scrape_url      │
-       │                    │
-       └────────┬───────────┘
-                │
-            ┌───▼────────┐
-            │ Critic     │
-            │ Chain      │
-            └────────────┘
-Agent Responsibilities
-Search Agent: Discovers relevant information across the web using Tavily
-Reader Agent: Extracts clean, readable content from URLs
-Writer Chain: Composes structured, professional research reports
-Critic Chain: Evaluates reports and provides improvement suggestions
-🛠️ Technologies Used
-Technology	Purpose
-LangChain	Multi-agent orchestration and chain management
-OpenAI GPT-4o-mini	Language model for agents and chains
-Streamlit	Interactive web UI
-Tavily API	Web search and information retrieval
-BeautifulSoup4	HTML parsing and content extraction
-Trafilatura	Web content extraction
-Readability-lxml	Article content extraction
-Python-dotenv	Environment configuration management
-Rich	Terminal output formatting
-📋 Prerequisites
-Python 3.11 or higher
-OpenAI API Key
-Tavily API Key
-🚀 Installation
-1. Clone the Repository
-git clone https://github.com/yourusername/LangChain-Multi-Agent-Research-System.git
-cd LangChain-Multi-Agent-Research-System
-2. Create Environment (Conda)
-conda create -n langagent python=3.11 -y
-conda activate langagent
-Or with venv:
+## Features
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-3. Install Dependencies
+- Search agent using Tavily web search
+- Reader agent for scraping and extracting web content
+- Writer agent for generating structured research reports
+- Critic module to review and score the report
+- Simple pipeline orchestration in `src/pipelines/pipelines.py`
+
+## Technology Used
+
+- Python 3
+- LangChain ecosystem (`langchain`, `langchain-core`, `langchain-google-genai`)
+- Google Gemini via `langchain-google-genai`
+- Tavily web search API via `tavily-python`
+- HTML parsing and extraction with `beautifulsoup4`, `readability-lxml`, `trafilatura`
+- HTTP requests with `requests`
+- Environment configuration with `python-dotenv`
+- Rich console output with `rich`
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repo-url>
+cd "E:\AI - 2026\Multi-Agent-Research-System"
+```
+
+2. Create and activate a Python virtual environment:
+
+```bash
+python -m venv .venv
+.venv\Scripts\Activate.ps1    # PowerShell
+# or
+.venv\Scripts\activate.bat    # CMD
+```
+
+3. Install dependencies:
+
+```bash
 pip install -r requirements.txt
-4. Configure Environment Variables
-Create a .env file in the project root:
+```
 
-OPENAI_API_KEY=your_openai_api_key_here
-TAVILY_API_KEY=your_tavily_api_key_here
-Get your keys from:
+4. Configure environment variables:
 
-OpenAI API
-Tavily API
-💡 Usage
-Run with Streamlit UI (Recommended)
-streamlit run app.py
-Then open http://localhost:8501 in your browser.
+Create a `.env` file in the project root and add any required API keys, for example:
 
-Run as a Script
+```env
+TAVILY_API_KEY=your_tavily_api_key
+GOOGLE_API_KEY=your_google_api_key
+```
+
+## Running the Project
+
+Run the main entry point:
+
+```bash
 python main.py
-Edit the topic variable in main.py to research different topics.
+```
 
-📁 Project Structure
-.
-├── app.py                      # Streamlit web interface
-├── main.py                     # CLI entry point
-├── requirements.txt            # Python dependencies
-├── README.md                   # This file
-├── LICENSE                     # License file
-├── demo.excalidraw            # Architecture diagram
-│
-└── src/
-    ├── __init__.py
-    ├── agents/
-    │   ├── __init__.py
-    │   └── agents.py           # Search, Reader, Writer, Critic agents
-    ├── tools/
-    │   ├── __init__.py
-    │   └── tools.py            # web_search, scrape_url tools
-    └── pipelines/
-        ├── __init__.py
-        └── pipeline.py         # Main research orchestration
-🔄 Workflow
-User Input: Enter a research topic via UI or script
-Search Phase: Search agent queries the web using Tavily
-Reading Phase: Reader agent extracts content from relevant URLs
-Writing Phase: Writer chain synthesizes findings into a structured report
-Review Phase: Critic chain evaluates the report and provides scores
-Output: Display final report with feedback and scores
-📊 Example Output
-The system generates reports with:
+The `main.py` script loads the research pipeline and runs a sample topic search and report generation.
 
-Comprehensive introduction and background
-Key findings with detailed explanations
-Well-sourced conclusions
-Structured sections and proper formatting
-Quality scores from 1-10
-🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Project Structure
 
-Fork the repository
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+- `main.py` — application entrypoint that starts the research pipeline
+- `requirements.txt` — Python dependency manifest
+- `src/` — source code package
+  - `src/tools/tools.py` — defines `web_search` and `scrape_url` tool functions
+  - `src/agents/agents.py` — builds LangChain agents and prompt chains
+  - `src/pipelines/pipelines.py` — orchestrates search, scraping, writing, and critique
 
-🙏 Acknowledgments
-Built with LangChain
-Search powered by Tavily
-UI built with Streamlit
-Inspired by agentic AI research patterns
+## Architecture Overview
+
+The codebase follows a simple multi-agent pipeline:
+
+1. `build_search_agent()` creates a LangChain agent that uses the `web_search` tool.
+2. `build_reader_agent()` creates a LangChain agent that uses the `scrape_url` tool.
+3. `run_research_pipeline()` in `src/pipelines/pipelines.py` executes the workflow:
+   - Search for relevant content
+   - Scrape the top search result
+   - Generate a structured research report
+   - Critique the report for strengths and improvements
+
+This keeps responsibilities separated and makes it easy to extend each stage.
+
+## Notes
+
+- The project is designed as an open-source style sample repo.
+- Add additional tools or agents by extending `src/tools/tools.py` and updating the pipeline.
+- Ensure API keys are present before running the pipeline.
