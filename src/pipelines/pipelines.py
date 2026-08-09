@@ -38,7 +38,7 @@ def run_research_pipeline(topic : str) -> dict:
 #step 3 - writer chain 
 
     print("\n"+" ="*50)
-    print("step 3 - Writer is drafting the report ...")
+    print("step 3 - Writer is drafting the report ....")
     print("="*50)
 
     research_combined = (
@@ -57,7 +57,7 @@ def run_research_pipeline(topic : str) -> dict:
     #critic report 
 
     print("\n"+" ="*50)
-    print("step 4 - critic is reviewing the report ")
+    print("step 4 - critic is reviewing the particular report ")
     print("="*50)
 
     state["feedback"] = critic_chain.invoke({
